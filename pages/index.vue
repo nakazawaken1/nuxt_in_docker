@@ -1,73 +1,86 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        docker_in_nuxt
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div class="index">
+    <nav>
+      <header @click="year++">▲</header>
+      <section>{{year}}年</section>
+      <footer @click="year--">▼</footer>
+    </nav>
+    <nav>
+      <header @click="increment_month">▲</header>
+      <section>{{month}}月</section>
+      <footer @click="decrement_month">▼</footer>
+    </nav>
+    <Calendar :year="year" :month="month" v-model="schedules" />
   </div>
 </template>
 
 <script>
-export default {}
+import Calendar from "~/components/Calendar.vue";
+export default {
+  components: {
+    Calendar
+  },
+  data() {
+    return {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      schedules: { "2020-07-11": "勉強会" }
+    };
+  },
+  methods: {
+    increment_month() {
+      if (this.month < 12) {
+        this.month++;
+      } else {
+        this.month = 1;
+        this.year++;
+      }
+    },
+    decrement_month() {
+      if (this.month > 1) {
+        this.month--;
+      } else {
+        this.month = 12;
+        this.year--;
+      }
+    }
+  },
+  watch: {
+    schedules: {
+      deep: true,
+      handler(value) {
+        localStorage.schedules = JSON.stringify(value);
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.schedules) {
+      try {
+        this.schedules = JSON.parse(localStorage.schedules);
+      } catch(e) {
+      }
+    }
+  }
+};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+<style lang="scss" scoped>
+.index {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  padding: 2em;
+  > nav {
+    display: flex;
+    flex-direction: column;
+    > header {
+      font-size: 150%;
+      cursor: pointer;
+      text-align: center;
+    }
+    > footer {
+      font-size: 150%;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
 }
 </style>

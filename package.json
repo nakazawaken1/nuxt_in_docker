@@ -8,10 +8,13 @@
     "start": "nuxt start",
     "export": "nuxt export",
     "serve": "nuxt serve",
+    "generate": "nuxt build && nuxt export",
     "test": "jest"
   },
   "dependencies": {
-    "nuxt": "^2.13.0"
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.13.0",
+    "sass-loader": "^9.0.2"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.3",
