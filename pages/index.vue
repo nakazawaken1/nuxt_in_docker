@@ -7,6 +7,7 @@
       <MyButton left_arrow />
       <MyButton right_arrow />
       <MyButton left_arrow right_arrow />
+      <MyButton>実行</MyButton>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@
     class="MyButton"
     :style="{'background-color': back_color, color: fore_color}"
     :class="{left_arrow, right_arrow}"
-  >ボタン</a>
+  ><slot>ボタン</slot></a>
 </template>
 
 <script>
