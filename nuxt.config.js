@@ -1,5 +1,8 @@
 
 export default {
+  router: {
+    base: process.env.BASE
+  },
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
