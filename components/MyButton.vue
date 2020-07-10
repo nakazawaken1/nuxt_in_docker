@@ -1,5 +1,9 @@
 <template>
-  <a class="MyButton" :style="{'background-color': back_color, color: fore_color}">ボタン</a>
+  <a
+    class="MyButton"
+    :style="{'background-color': back_color, color: fore_color}"
+    :class="{left_arrow, right_arrow}"
+  >ボタン</a>
 </template>
 
 <script>
@@ -12,6 +16,14 @@ export default {
     fore_color: {
       type: String,
       default: "#ffffff"
+    },
+    left_arrow: {
+      type: Boolean,
+      default: false
+    },
+    right_arrow: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -24,5 +36,19 @@ export default {
   padding: 1em 2em;
   font-weight: bold;
   text-decoration: none;
+}
+.MyButton.left_arrow {
+  padding-left: 0;
+}
+.MyButton.left_arrow::before {
+  content: "〈";
+  padding-right: 1em;
+}
+.MyButton.right_arrow {
+  padding-right: 0;
+}
+.MyButton.right_arrow::after {
+  padding-left: 1em;
+  content: "〉";
 }
 </style>
