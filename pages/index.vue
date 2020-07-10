@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <MyButton />
+      <MyButton back_color="#666666"/>
     </div>
   </div>
 </template>
