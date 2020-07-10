@@ -1,37 +1,49 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        docker_in_nuxt
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <ul>
+      <li>
+        <label>身長</label>
+        <input type="nubmer" v-model="tall" />
+        <span>cm</span>
+      </li>
+      <li>
+        <label>体重</label>
+        <input type="nubmer" v-model="weight" />
+        <span>kg</span>
+      </li>
+      <li>BMI(Body Mass Index) = {{format(bmi)}}</li>
+      <li>適正体重 = {{format(standard_weight)}}kg</li>
+      <li>適正体重との差 = {{format(weight - standard_weight)}}kg</li>
+    </ul>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      tall: 185,
+      weight: 80
+    };
+  },
+  computed: {
+    bmi() {
+      return (this.weight / (this.tall * this.tall)) * 10000;
+    },
+    standard_weight() {
+      return (this.tall * this.tall * 22) / 10000;
+    }
+  },
+  methods: {
+    format(value) {
+      const x100 = value * 100;
+      return Math.round(x100) / 100;
+    }
+  }
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -39,35 +51,11 @@ export default {}
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  > ul {
+    list-style-type: none;
+    > li {
+      margin: 1em;
+    }
+  }
 }
 </style>
